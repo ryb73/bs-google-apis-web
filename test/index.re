@@ -1,11 +1,18 @@
-let oauth = Youtube.authenticate [%bs.obj {
-    authType: "oauth",
-    client_id: "clid",
-    client_secret: Js.Undefined.return "secret",
-    redirect_url: "http://localhost"
-}];
+open Js.Promise;
 
-Js.log @@ oauth##generateAuthUrl [%bs.obj {
-    access_type: "online",
-    scope: [| "scope" |]
-}];
+let client = Google.Client.init "client_id" [| `YouTubeSSL, `YouTubeReadOnly |];
+
+client
+    |> then_ (fun _ => {
+        let auth = Google.Auth2.getAuthInstance ();
+
+        if(auth##isSignedIn##get ()) {
+            ();
+        } else {
+            auth##signIn ();
+        };
+
+        auth##isSignedIn##listen (fun _ => ());
+
+        resolve ();
+    });

@@ -1,2 +1,2 @@
-# bs-youtube-api
-Bucklescript bindings for IonicaBizau/youtube-api
+# bs-google-apis-web
+Bucklescript bindings for the Google web APIs

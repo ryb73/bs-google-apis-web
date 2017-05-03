@@ -1,5 +1,5 @@
 {
-    "name" : "bs-youtube-api",
+    "name" : "bs-google-apis-web",
     "sources" : [
         { "dir" : "src" },
         {

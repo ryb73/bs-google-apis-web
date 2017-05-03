@@ -1,11 +1,12 @@
 {
-  "name": "bs-youtube-api",
+  "name": "bs-google-apis-web",
   "version": "1.0.0",
-  "description": "Bucklescript bindings for Bucklescript bindings for IonicaBizau/youtube-api",
+  "description": "Bucklescript bindings for the Google web APIs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "eval $(dependencyEnv) && nopam && bsb 2>&1 | berror.native --path-to-refmttype $(which refmttype)",
+    "build-no-be": "bsb",
     "watch": "eval $(dependencyEnv) && nopam && bsb -make-world -w 2>&1 | berror.native --path-to-refmttype $(which refmttype)",
     "clean": "bsb -clean-world"
   },
@@ -15,7 +16,7 @@
   "_": [],
   "repository": {
     "type": "git",
-    "url": "git@github.com:ryb73/bs-youtube-api.git"
+    "url": "git@github.com:ryb73/bs-google-apis-web.git"
   },
   "devDependencies": {
     "bs-platform": "1.7.3",
