@@ -8,4 +8,4 @@ class type t = {
     pub signIn : unit => unit;
 } [@bs];
 
-external getAuthInstance : unit => Js.t t = "gapi.getAuthInstance" [@@bs.val];
+external getAuthInstance : unit => Js.t t = "gapi.auth2.getAuthInstance" [@@bs.val];

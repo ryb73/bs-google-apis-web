@@ -5,6 +5,7 @@ type initOptionsJs = [%bs.obj: {.
 }];
 
 external _init : initOptionsJs => Js.Promise.t unit = "gapi.client.init" [@@bs.val];
+external _load : string => (unit => unit) => unit = "gapi.load" [@@bs.val];
 
 let getAppFromScope scope => switch scope {
     | `YouTube => `YouTube
@@ -40,11 +41,19 @@ let getScopeString scopes => scopes
     |> Js.Array.joinWith " ";
 
 let init clientId scopes => {
-    let discoveryDocs = getDiscoveryDocs scopes;
-    let scopeString = getScopeString scopes;
-    _init [%bs.obj {
-        clientId,
-        discoveryDocs: discoveryDocs,
-        scope: scopeString
-    }];
+    Js.Promise.make (fun ::resolve ::reject => {
+        reject; /* ignore unused var warning */
+
+        _load "client:auth2" (fun _ => {
+            let discoveryDocs = getDiscoveryDocs scopes;
+            let scopeString = getScopeString scopes;
+            let initResult = _init [%bs.obj {
+                clientId,
+                discoveryDocs: discoveryDocs,
+                scope: scopeString
+            }];
+
+            resolve initResult [@bs];
+        });
+    });
 };
