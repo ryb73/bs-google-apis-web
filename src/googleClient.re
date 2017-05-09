@@ -41,9 +41,7 @@ let getScopeString scopes => scopes
     |> Js.Array.joinWith " ";
 
 let init clientId scopes => {
-    Js.Promise.make (fun ::resolve ::reject => {
-        reject; /* ignore unused var warning */
-
+    Js.Promise.make (fun ::resolve reject::_ => {
         _load "client:auth2" (fun _ => {
             let discoveryDocs = getDiscoveryDocs scopes;
             let scopeString = getScopeString scopes;
