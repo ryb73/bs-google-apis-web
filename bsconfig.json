@@ -1,8 +1,10 @@
 {
     "name" : "bs-google-apis-web",
     "sources" : [
-        { "dir" : "src" },
         {
+            "dir" : "src",
+            "subdirs": [ "youTube" ]
+        }, {
             "dir": "test",
             "type": "dev"
         }
