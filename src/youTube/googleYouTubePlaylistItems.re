@@ -9,22 +9,22 @@ type insertOptions = Js.t {.
     snippet: Js.t {.
         playlistId: string,
         resourceId: Js.t {.
-            kind: Js.undefined string,
+            kind: string,
             videoId: string
         }
     }
 };
 
 let insertOptions ::playlistId ::videoId () => {
-    "part": "id",
+    "part": "id,snippet",
     "snippet": {
         "playlistId" : playlistId,
         "resourceId": {
-            "kind": Js.undefined,
+            "kind": "youtube#video",
             "videoId": videoId
         }
     }
 };
 
-external _insert : insertOptions => Js.t insertResult = "gapi.client.youtube.playlists.insert" [@@bs.val];
+external _insert : insertOptions => Js.t insertResult = "gapi.client.youtube.playlistItems.insert" [@@bs.val];
 let insert opts => GooglePromise.convert @@ _insert opts;
