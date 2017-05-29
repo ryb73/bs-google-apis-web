@@ -35,20 +35,27 @@ type insertOptions = Js.t {.
         title: string,
         description: Js.undefined string
     },
-    status: Js.t {.
+    status: Js.undefined (Js.t {.
         privacyStatus: Js.undefined string
-    }
+    })
 };
 
 let insertOptions ::part ::title ::description=? ::privacyStatus=? () => {
-    "part": part,
-    "snippet": {
-        "title" : title,
-        "description": Js.Undefined.from_opt description
-    },
-    "status": {
-        "privacyStatus": Js.Undefined.from_opt privacyStatus
-    }
+    let status = switch privacyStatus {
+        | None => Js.undefined
+        | Some x => Js.Undefined.return {
+            "privacyStatus": Js.Undefined.return x
+        }
+    };
+
+    {
+        "part": part,
+        "snippet": {
+            "title" : title,
+            "description": Js.Undefined.from_opt description
+        },
+        "status": status
+    };
 };
 
 external _insert : insertOptions => Js.t insertResult = "gapi.client.youtube.playlists.insert" [@@bs.val];

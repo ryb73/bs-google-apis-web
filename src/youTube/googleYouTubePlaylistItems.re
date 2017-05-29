@@ -15,8 +15,8 @@ type insertOptions = Js.t {.
     }
 };
 
-let insertOptions ::part="id" ::playlistId ::videoId () => {
-    "part": part,
+let insertOptions ::playlistId ::videoId () => {
+    "part": "id",
     "snippet": {
         "playlistId" : playlistId,
         "resourceId": {
