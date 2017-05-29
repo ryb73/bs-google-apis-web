@@ -49,10 +49,26 @@ let doInsertPlaylist () => {
         });
 };
 
+let doInsertPlaylistItem () => {
+    let opts = Google.YouTube.PlaylistItems.insertOptions
+        playlistId::"playlistId" videoId::"videoId" ();
+
+    Google.YouTube.PlaylistItems.insert opts
+        |> then_ (fun data => {
+            Js.log data;
+            resolve ();
+        })
+        |> catch (fun err => {
+            Js.log err;
+            resolve ();
+        });
+};
+
 let doYouTubeStuff () => {
     doSearch ();
     doListPlaylists ();
     doInsertPlaylist ();
+    doInsertPlaylistItem ();
     ();
 };
 
